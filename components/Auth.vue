@@ -30,7 +30,7 @@ const handleLogin = async () => {
         <input
           class="inputField"
           type="email"
-          placeholder="Your email"
+          placeholder="Ваш E-Mailaaa"
           v-model="email"
         />
       </div>
@@ -38,7 +38,7 @@ const handleLogin = async () => {
         <input
           class="inputField"
           type="password"
-          placeholder="password"
+          placeholder="Пароль"
           v-model="password"
         />
       </div>
