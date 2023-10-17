@@ -95,7 +95,7 @@ async function signOut() {
 
     <div>
       <button class="button block" @click="signOut" :disabled="loading">
-        Sign Out
+        Выйти
       </button>
     </div>
   </form>
