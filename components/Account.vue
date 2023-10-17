@@ -73,11 +73,11 @@ async function signOut() {
       <input id="email" type="text" :value="user.email" disabled />
     </div>
     <div>
-      <label for="username">Username</label>
+      <label for="username">Имя пользователя</label>
       <input id="username" type="text" v-model="username" />
     </div>
     <div>
-      <label for="website">Website</label>
+      <label for="website">Сайт</label>
       <input id="website" type="url" v-model="website" />
     </div>
 
