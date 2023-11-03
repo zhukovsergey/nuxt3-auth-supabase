@@ -31,6 +31,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  layout: "user",
+  middleware: ["auth"],
+});
 import opros from "../../src/opros.json";
 const supabase = useSupabaseClient();
 const user = useSupabaseUser();

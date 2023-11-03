@@ -97,6 +97,10 @@
 </template>
 
 <script setup>
+definePageMeta({
+  layout: "user",
+  middleware: ["auth"],
+});
 const supabase = useSupabaseClient();
 let formatter = new Intl.DateTimeFormat("ru", {
   weekday: "long",
