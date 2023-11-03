@@ -13,6 +13,7 @@ const handleLogin = async () => {
       password: password.value,
     });
     if (error) throw error;
+    navigateTo("/user");
   } catch (error) {
     alert(error.error_description || error.message);
   } finally {

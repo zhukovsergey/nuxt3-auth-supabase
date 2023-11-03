@@ -1,10 +1,16 @@
 <script setup>
 const user = useSupabaseUser();
+
+import { storeToRefs } from "pinia";
+const main = useUserprofile();
+const { userprofile } = storeToRefs(main);
+const { addToStore } = main;
+
+addToStore();
 </script>
 
 <template>
-  <div class="container" style="padding: 50px 0 100px 0">
-    <Account v-if="user" />
-    <Auth v-else />
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

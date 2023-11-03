@@ -1,0 +1,20 @@
+{
+
+"questions": [
+    {
+      "question": "What is your favorite color?",
+      "answers": ["Red", "Green", "Blue"],
+      "goodanswer": "Red"
+    },
+    {
+      "question": "What is your favorite food?",
+      "answers": ["Pizza", "Burgers", "Tacos"],
+      "goodanswer": "Pizza"
+    },{
+      "question": "Какая погода?",
+      "answers": ["Норм", "Так себе", "Печаль"],
+      "goodanswer": "Норм"
+    }
+  ]
+
+}

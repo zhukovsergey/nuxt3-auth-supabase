@@ -1,39 +1,53 @@
 <script setup>
 const supabase = useSupabaseClient();
-
+import { storeToRefs } from "pinia";
 const loading = ref(true);
 const username = ref("");
+
 const website = ref("");
 const avatar_path = ref("");
 const messageUpdate = ref("");
+const isadmin = ref(false);
+const main = useUserprofile();
+const userprofile = computed(() => main.userprofile);
+const { addToStore } = main;
+const { clearProfile } = main;
+const tasks = ref();
 
 loading.value = true;
 const user = useSupabaseUser();
 
 const { data } = await supabase
   .from("profiles")
-  .select(`username, website, avatar_url`)
+  .select(`username, website, avatar_url,isadmin, tasks`)
   .eq("id", user.value.id)
   .single();
 
-if (data) {
-  username.value = data.username;
-  website.value = data.website;
-  avatar_path.value = data.avatar_url;
-}
-
-loading.value = false;
+onMounted(() => {
+  if (data) {
+    try {
+      username.value = data.username;
+      website.value = data.website;
+      isadmin.value = data.isadmin;
+      tasks.value = data.tasks;
+      loading.value = false;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+});
 
 async function updateProfile() {
   try {
     loading.value = true;
-    const user = useSupabaseUser();
 
     const updates = {
       id: user.value.id,
       username: username.value,
       website: website.value,
       avatar_url: avatar_path.value,
+      tasks: [tasks.value],
+      isadmin: isadmin.value,
       updated_at: new Date(),
     };
 
@@ -58,6 +72,8 @@ async function signOut() {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     user.value = null;
+    clearProfile();
+    navigateTo("/");
   } catch (error) {
     alert(error.message);
   } finally {
@@ -70,7 +86,7 @@ async function signOut() {
   <form class="form-widget" @submit.prevent="updateProfile">
     <div>
       <label for="email">Email</label>
-      <input id="email" type="text" :value="user.email" disabled />
+      <input id="email" type="text" :value="user?.email" disabled />
     </div>
     <div>
       <label for="username">Имя пользователя</label>
@@ -79,6 +95,18 @@ async function signOut() {
     <div>
       <label for="website">Сайт</label>
       <input id="website" type="url" v-model="website" />
+    </div>
+    <div>
+      <label for="website">Задачи</label>
+      <input id="website" type="text" v-model="tasks" />
+    </div>
+    <div v-if="isadmin">
+      <label for="isadmin">Администратор</label>
+      <input
+        type="checkbox"
+        class="bg-gray-600 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+        v-model="isadmin"
+      />
     </div>
 
     <div>
